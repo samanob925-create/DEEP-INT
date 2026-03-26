@@ -269,7 +269,7 @@ nav a:hover, nav a.active {
 }
 
 .logo-img {
-    height: 10px; /* Tamaño del logo */
+    height: 40px; /* Tamaño del logo */
     width: auto;
 }
 
