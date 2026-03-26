@@ -278,7 +278,7 @@ nav a:hover, nav a.active {
 
 /* =========================================
    Sección Quiénes Somos
-   ========================================= 
+   =========================================*/ 
 .about-section {
     background-color: #ffffff;
     padding: 5rem 5%;
@@ -303,7 +303,7 @@ nav a:hover, nav a.active {
     font-size: 1.1rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
-}*/
+}
 
 /* =========================================
    Footer
