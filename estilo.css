@@ -262,10 +262,11 @@ nav a:hover, nav a.active {
 /* =========================================
    Logo y Eslogan
    ========================================= */
-.logo-contenedor {
+logo-contenedor {
     display: flex;
     align-items: center;
-    gap: 100px;
+    gap: 10px;
+   
    ;
 }
 
