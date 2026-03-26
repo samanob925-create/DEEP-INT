@@ -266,6 +266,8 @@ nav a:hover, nav a.active {
     display: flex;
     align-items: center;
     gap: 15px;
+   height: 1600px; /* Tamaño del logo */
+    width: auto;
 }
 
 .logo-img {
