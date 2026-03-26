@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Entrevista | DEEP-INT</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+        .interview-workspace {
+            display: flex;
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .ai-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 30px;
+        }
+        .ai-message {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #38bdf8;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .user-panel {
+            flex: 1.5;
+            padding: 30px;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+        }
+        .code-editor {
+            flex-grow: 1;
+            width: 100%;
+            background: #282a36;
+            color: #f8f8f2;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            border-radius: 8px;
+            border: none;
+            resize: none;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .code-editor:focus { outline: 2px solid #38bdf8; }
+        .timer {
+            color: #ef4444;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DEEP-INT</h1>
+        <nav>
+            <a href="index.html">Volver al Inicio</a>
+        </nav>
+    </header>
+
+    <div class="interview-workspace">
+        <div class="ai-panel">
+            <h3 style="color: #38bdf8; margin-top: 0;">🤖 Entrevistador IA</h3>
+            <div class="ai-message">
+                <p><strong>Pregunta 1 de 5:</strong></p>
+                <p>Hablemos de tus habilidades en desarrollo y redes. Imagina que te pedimos desarrollar una calculadora de subredes con interfaz gráfica en Java usando Swing.</p>
+                <p>¿Podrías escribir en el editor la estructura básica de la clase principal para inicializar la ventana (JFrame) y explicar brevemente tu lógica?</p>
+            </div>
+            <p style="color: #94a3b8; font-size: 0.9rem;">*La IA está evaluando: Lógica de programación, POO y sintaxis de Java.</p>
+        </div>
+        
+        <div class="user-panel">
+            <div class="timer">⏱️ Tiempo restante: 04:59</div>
+            <h3 style="margin-top: 0; color: #0f172a;">Tu Respuesta (Consola)</h3>
+            <textarea class="code-editor" placeholder="// Escribe tu código o respuesta aquí..."></textarea>
+            <button class="btn-primary btn-full" style="margin-top: 20px;">Enviar Respuesta a la IA</button>
+        </div>
+    </div>
+
+</body>
+</html>
