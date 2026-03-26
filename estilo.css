@@ -264,7 +264,7 @@ nav a:hover, nav a.active {
    ========================================= */
 .logo-contenedor {
     display: flex;
-    align-items: center;
+    align-items: auto;
     gap: 10px;
    
    ;
