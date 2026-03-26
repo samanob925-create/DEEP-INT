@@ -197,6 +197,68 @@ nav a:hover, nav a.active {
     border-color: #38bdf8;
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }
+/* =========================================
+   Diseño Responsivo (Para Celulares y Tablets)
+   ========================================= */
+@media screen and (max-width: 768px) {
+    /* Ajustar el menú de navegación */
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    nav {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    nav a {
+        margin-left: 0;
+        font-size: 0.95rem;
+    }
+
+    /* Ajustar los textos principales */
+    .hero {
+        padding: 4rem 5%;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* Hacer que las tarjetas ocupen toda la pantalla hacia abajo */
+    .features, .modules-grid {
+        padding: 2rem 5%;
+    }
+
+    .feature-card, .module-card {
+        width: 100%;
+        min-width: unset;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Ajustar el contenedor de la entrevista y el formulario */
+    .interview-workspace {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .ai-panel, .user-panel {
+        padding: 20px;
+    }
+
+    .form-container {
+        padding: 2rem 1.5rem;
+    }
+}
 
 /* =========================================
    Footer
