@@ -259,6 +259,57 @@ nav a:hover, nav a.active {
         padding: 2rem 1.5rem;
     }
 }
+/* =========================================
+   Logo y Eslogan
+   ========================================= */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 40px; /* Tamaño del logo */
+    width: auto;
+}
+
+.slogan {
+    color: #38bdf8;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    margin-top: -10px;
+    margin-bottom: 25px;
+}
+
+/* =========================================
+   Sección Quiénes Somos
+   ========================================= */
+.about-section {
+    background-color: #ffffff;
+    padding: 5rem 5%;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #e2e8f0;
+}
+
+.about-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.about-content h2 {
+    color: #0f172a;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-content p {
+    color: #475569;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
 
 /* =========================================
    Footer
