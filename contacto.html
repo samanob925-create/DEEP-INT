@@ -49,23 +49,26 @@
         </div>
     </section>
 
-    <script type="module">
+   <script type="module">
+        // Importamos las herramientas de Firebase (versión para navegador web)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
+        // Tu nueva configuración del proyecto deep-int-app
         const firebaseConfig = {
-            apiKey: "AIzaSyCbGaLdi9NyGBm4NEeAtRdexhUWlO3UeeU",
-            authDomain: "deep-int-db.firebaseapp.com",
-            projectId: "deep-int-db",
-            storageBucket: "deep-int-db.firebasestorage.app",
-            messagingSenderId: "797406208730",
-            appId: "1:797406208730:web:4ab61c7ad791d60eca3be3",
-            measurementId: "G-8RN01KYSQB"
+            apiKey: "AIzaSyBGkBAjdlhc3n_q5fOA_2LlsmNe8Zoo4jo",
+            authDomain: "deep-int-app.firebaseapp.com",
+            projectId: "deep-int-app",
+            storageBucket: "deep-int-app.firebasestorage.app",
+            messagingSenderId: "562048760920",
+            appId: "1:562048760920:web:72beb68f0141f3e73ade2d"
         };
 
+        // Inicializamos Firebase y la Base de Datos
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Lógica del botón de registro
         document.getElementById('registroForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -77,6 +80,7 @@
             btn.innerText = "Guardando...";
 
             try {
+                // Guardamos en la colección "usuarios"
                 await addDoc(collection(db, "usuarios"), {
                     nombre: nombre,
                     correo: correo,
