@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro | DEEP-INT</title>
     <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -12,7 +13,8 @@
         <h1>DEEP-INT</h1>
         <nav>
             <a href="index.html">Inicio</a>
-            <a href="modulos.html">Módulos de Prueba</a>
+            <a href="#nosotros">Quiénes Somos</a>
+            <a href="modulos.html">Lenguajes de Prueba</a>
             <a href="contacto.html" class="active">Contacto y Registro</a>
         </nav>
     </header>
@@ -20,7 +22,7 @@
     <section class="contact-section">
         <div class="form-container">
             <h2>Crea tu cuenta de prueba</h2>
-            <p>Inicia tu preparación para el mundo laboral hoy mismo.</p>
+            <p>Inicia tu preparación para el mundo del desarrollo hoy mismo.</p>
             
             <form action="#">
                 <div class="input-group">
@@ -32,18 +34,74 @@
                     <input type="email" id="correo" placeholder="tu@correo.com" required>
                 </div>
                 <div class="input-group">
-                    <label for="area">Área de interés principal</label>
+                    <label for="area">Lenguaje de interés principal</label>
                     <select id="area">
-                        <option value="programacion">Programación y Desarrollo</option>
-                        <option value="redes">Redes e Infraestructura</option>
-                        <option value="seguridad">Ciberseguridad</option>
-                        <option value="auditoria">Auditoría en Sistemas</option>
+                        <option value="java">Java</option>
+                        <option value="python">Python</option>
+                        <option value="c">C</option>
+                        <option value="cplusplus">C++</option>
+                        <option value="php">PHP</option>
+                        <option value="javascript">JavaScript</option>
                     </select>
                 </div>
                 <button type="submit" class="btn-primary btn-full">Registrarse y Comenzar</button>
             </form>
         </div>
     </section>
+    <script type="module">
+        // 1. Importar las herramientas de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // 2. PEGA AQUÍ TU CONFIGURACIÓN (Reemplaza este bloque con el tuyo del Paso 2)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCbGaLdi9NyGBm4NEeAtRdexhUWlO3UeeU",
+            authDomain: "deep-int-db.firebaseapp.com",
+            projectId: "deep-int-db",
+            storageBucket: "deep-int-db.firebasestorage.app",
+            messagingSenderId: "797406208730",
+            appId: "1:797406208730:web:4ab61c7ad791d60eca3be3",
+            measurementId: "G-8RN01KYSQB"
+        };
+
+        // 3. Inicializar Firebase y la Base de Datos
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 4. Capturar el formulario cuando el usuario le da clic a "Registrarse"
+        document.getElementById('registroForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evita que la página se recargue
+
+            // Obtener los datos que escribió el usuario
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const area = document.getElementById('area').value;
+
+            // Cambiar el texto del botón para que sepa que está cargando
+            const btn = document.querySelector('.btn-primary');
+            btn.innerText = "Guardando...";
+
+            try {
+                // Guardar los datos en una colección llamada "usuarios" en tu base de datos
+                await addDoc(collection(db, "usuarios"), {
+                    nombre: nombre,
+                    correo: correo,
+                    lenguaje: area,
+                    fechaRegistro: new Date().toISOString()
+                });
+
+                // Si sale bien, avisar al usuario y limpiar el formulario
+                alert("¡Registro exitoso! Ya estás en la base de datos de DEEP-INT.");
+                document.getElementById('registroForm').reset();
+                btn.innerText = "Registrarse y Comenzar";
+
+            } catch (error) {
+                console.error("Error al guardar: ", error);
+                alert("Hubo un error al registrar. Intenta de nuevo.");
+                btn.innerText = "Registrarse y Comenzar";
+            }
+        });
+    </script>
 
     <footer>
         <p>&copy; 2026 DEEP-INT - Proyecto de Auditoría en Sistemas Computacionales.</p>
