@@ -3,39 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis y Corrección | DEEP-INT</title>
+    <title>Retroalimentación y Corrección | DEEP-INT</title>
     <link rel="stylesheet" href="estilo.css">
     <style>
-        .feedback-container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .error-box {
-            background: #fef2f2;
-            border: 1px solid #fca5a5;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
+        .feedback-container { max-width: 900px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .error-box { background: #fef2f2; border: 1px solid #fca5a5; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
         .error-box h4 { color: #dc2626; margin-top: 0; }
-        .correction-box {
-            background: #f0fdf4;
-            border: 1px solid #86efac;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #22c55e;
-        }
+        .correction-box { background: #f0fdf4; border: 1px solid #86efac; padding: 20px; border-radius: 10px; border-left: 5px solid #22c55e; }
         .correction-box h4 { color: #166534; margin-top: 0; }
-        .highlight {
-            background-color: #fef08a;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
+        .highlight { background-color: #fef08a; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -47,23 +25,19 @@
     </header>
 
     <div class="feedback-container">
-        <h2 style="text-align: center; color: #0f172a; margin-bottom: 10px;">⚡ Análisis de Respuesta en Tiempo Real</h2>
-        <p style="text-align: center; color: #64748b; margin-bottom: 40px;">Módulo: Ciberseguridad y Pentesting</p>
+        <h2 style="text-align: center; color: #0f172a; margin-bottom: 10px;">⚡ Análisis de Código en Tiempo Real</h2>
+        <p style="text-align: center; color: #64748b; margin-bottom: 40px;">Módulo: Programación C</p>
 
         <div class="error-box">
             <h4>❌ Lo que respondiste:</h4>
-            <p>"Para hacer un escaneo de puertos de una IP desde la terminal, solamente abro Kali Linux y escribo <span class="highlight">nmap -sS</span> y con eso ya me da toda la información de las vulnerabilidades."</p>
+            <p>"En mi función para asignar memoria a un puntero, utilizo <span class="highlight">free(ptr); ptr = NULL;</span> y luego intento acceder a <span class="highlight">*ptr</span> para mostrar el valor que tenía, así no hay fugas de memoria."</p>
         </div>
 
         <div class="correction-box">
             <h4>✅ Corrección de la IA:</h4>
-            <p><strong>Estás en el camino correcto, pero la respuesta está incompleta para una entrevista formal.</strong></p>
-            <p>El parámetro <code>-sS</code> realiza un escaneo SYN (Stealth), lo cual es bueno. Sin embargo, debes mencionar dos cosas clave al reclutador:</p>
-            <ul>
-                <li>Ese tipo de escaneo requiere permisos de administrador (ejecutar con <code>sudo</code>).</li>
-                <li>Nmap por sí solo no muestra "todas las vulnerabilidades", muestra puertos abiertos. Para buscar vulnerabilidades específicas tendrías que mencionar el uso de scripts, por ejemplo: <code>nmap --script vuln</code>.</li>
-            </ul>
-            <p><strong>Respuesta sugerida:</strong> <em>"Para un escaneo sigiloso utilizaría 'sudo nmap -sS', pero si el objetivo es encontrar vulnerabilidades, lo complementaría con el motor de scripts (NSE)."</em></p>
+            <p><strong>Tu lógica para evitar fugas de memoria es correcta al usar `free(ptr)`, pero tu respuesta tiene un error crítico de lógica de programación.</strong></p>
+            <p>Al hacer `ptr = NULL` después de liberarlo, evitas un puntero colgante ("dangling pointer"), lo cual es una mejor práctica. Sin embargo, intentar acceder a `*ptr` (desreferenciar) inmediatamente después de asignarle `NULL` provocará un error de segmentación (segmentation fault) y el programa se cerrará.</p>
+            <p><strong>Respuesta sugerida:</strong> <em>"Una vez liberada la memoria con `free(ptr)` y asignado `NULL`, no es posible acceder a su contenido. Lo correcto es mostrar el valor que tenía *antes* de liberarlo."</em></p>
         </div>
 
         <div style="text-align: center; margin-top: 40px;">
