@@ -42,7 +42,7 @@
     </div>
 
     <script>
-        // ⚠️ IMPORTANTE: PEGA AQUÍ TU LLAVE DE AI STUDIO
+        // ⚠️ IMPORTANTE: PEGA AQUÍ TU LLAVE NUEVA DE AI STUDIO (¡NO LA COMPARTAS!)
         const GEMINI_API_KEY = "AIzaSyDFjWEvZyd1o3y62nULIQxIzXpUQrqbGIo"; 
 
         document.getElementById('btnEnviarIA').addEventListener('click', async () => {
@@ -70,8 +70,8 @@
             `;
 
             try {
-                // Hacemos la petición a la API de Gemini
-                const respuesta = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                // CAMBIO APLICADO AQUÍ: Usamos "gemini-pro" en lugar de "gemini-1.5-flash"
+                const respuesta = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -92,7 +92,7 @@
                 
             } catch (error) {
                 console.error(error);
-                pantallaIA.innerHTML = "<p style='color: #ef4444;'><strong>Error de conexión.</strong> Verifica que pegaste correctamente tu API Key de Gemini.</p>";
+                pantallaIA.innerHTML = "<p style='color: #ef4444;'><strong>Error de conexión.</strong> El modelo de IA rechazó la solicitud o la llave es inválida.</p>";
             } finally {
                 btn.innerText = "Enviar a Evaluación IA";
                 btn.disabled = false;
