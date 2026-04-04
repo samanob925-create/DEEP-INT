@@ -25,25 +25,32 @@
 
     <div class="interview-workspace">
         <div class="ai-panel">
-            <h3 style="color: #38bdf8; margin-top: 0;">🤖 Entrevistador de Código (Gemini)</h3>
+            <h3 style="color: #38bdf8; margin-top: 0;">🤖 Entrevistador de Código</h3>
             <div id="pantallaIA" class="ai-message">
-                <p><strong>Módulo Técnico Inicializado:</strong></p>
+                <p><strong id="tituloModulo">Módulo Técnico Inicializado</strong></p>
                 <p>Hola, soy el reclutador automatizado de DEEP-INT.</p>
-                <p>Para comenzar, escribe en la consola un pequeño código resolviendo algún problema (por ejemplo, en Java, Python o C++) o hazme una pregunta sobre un concepto de programación (como punteros, arreglos o herencia).</p>
+                <p>Escribe en la consola tu código o hazme una pregunta sobre este lenguaje para comenzar tu evaluación.</p>
             </div>
             <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 10px;">*La IA evaluará: Sintaxis, lógica y buenas prácticas.</p>
         </div>
         
         <div class="user-panel">
             <h3 style="margin-top: 0; color: #0f172a;">Tu Consola / Respuesta</h3>
-            <textarea id="codigoUsuario" class="code-editor" placeholder="// Escribe tu código o pregunta aquí..."></textarea>
+            <textarea id="codigoUsuario" class="code-editor" placeholder="// Escribe tu código aquí..."></textarea>
             <button id="btnEnviarIA" class="btn-primary btn-full" style="margin-top: 20px;">Enviar a Evaluación IA</button>
         </div>
     </div>
 
     <script>
-        // ⚠️ IMPORTANTE: PEGA AQUÍ TU LLAVE NUEVA DE AI STUDIO (¡NO LA COMPARTAS!)
+        // ⚠️ PEGA AQUÍ TU LLAVE NUEVA DE AI STUDIO
         const GEMINI_API_KEY = "AIzaSyBMnbfGNiovsIfehNAvnY6un7KF4gV52cY"; 
+
+        // 1. Atrapamos el lenguaje que viene en el enlace desde modulos.html
+        const urlParams = new URLSearchParams(window.location.search);
+        const lenguajeElegido = urlParams.get('lang') || 'Programación General';
+
+        // 2. Actualizamos el título en la pantalla para que el usuario lo vea
+        document.getElementById('tituloModulo').innerText = `Módulo Inicializado: Prueba de ${lenguajeElegido}`;
 
         document.getElementById('btnEnviarIA').addEventListener('click', async () => {
             const inputUsuario = document.getElementById('codigoUsuario').value;
@@ -55,21 +62,23 @@
             const btn = document.getElementById('btnEnviarIA');
             const pantallaIA = document.getElementById('pantallaIA');
             
-            // Estado de carga
             btn.innerText = "La IA está evaluando...";
             btn.disabled = true;
             pantallaIA.innerHTML = "<p><em>Analizando código, verificando sintaxis... ⏱️</em></p>";
 
-            // Instrucciones secretas que le damos a la IA para que actúe como reclutador
+            // 3. Le decimos a la IA qué lenguaje estamos evaluando
             const contexto = `
             Actúa como un reclutador técnico experto y estricto de la empresa de software 'DEEP-INT'. 
             Estás auditando los conocimientos de un candidato a programador.
-            Analiza el siguiente texto o código del candidato. Si es código (Java, Python, C++, etc.), encuentra errores, explícalos de forma clara y dale retroalimentación sobre cómo mejorarlo usando buenas prácticas. Si es una pregunta técnica, respóndele como un experto. Trátalo de usted y mantén un tono profesional.
+            IMPORTANTE: La evaluación de este candidato es específicamente para el lenguaje: ${lenguajeElegido}.
+            
+            Analiza el siguiente texto o código del candidato. Si es código, verifica que la sintaxis sea correcta para ${lenguajeElegido}, encuentra errores, explícalos de forma clara y dale retroalimentación. Trátalo de usted y mantén un tono profesional.
             
             Texto del candidato: ${inputUsuario}
             `;
 
             try {
+                // Usamos gemini-2.0-flash que es el modelo más reciente y activo
                 const respuesta = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -85,13 +94,11 @@
                 }
 
                 const textoIA = datos.candidates[0].content.parts[0].text;
-                
-                // Mostramos el resultado en la pantalla, convirtiendo los saltos de línea a formato HTML
                 pantallaIA.innerHTML = `<p><strong>Respuesta del Reclutador:</strong></p><p>${textoIA.replace(/\n/g, '<br>')}</p>`;
                 
             } catch (error) {
                 console.error(error);
-                pantallaIA.innerHTML = "<p style='color: #ef4444;'><strong>Error de conexión.</strong> El modelo de IA rechazó la solicitud o la llave es inválida.</p>";
+                pantallaIA.innerHTML = "<p style='color: #ef4444;'><strong>Error de conexión.</strong> Verifica que pusiste una llave válida de AI Studio.</p>";
             } finally {
                 btn.innerText = "Enviar a Evaluación IA";
                 btn.disabled = false;
