@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | DEEP-INT</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-contenedor">
+            <img src="logo.jpg" alt="Logo DEEP-INT" class="logo-img">
+            <h1>DEEP-INT</h1>
+        </div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="contacto.html">Registro Nuevo</a>
+        </nav>
+    </header>
+
+    <section class="contact-section">
+        <div class="form-container">
+            <h2>Iniciar Sesión</h2>
+            <p>Ingresa para acceder a tus módulos de programación y evaluación.</p>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="loginCorreo">Correo electrónico</label>
+                    <input type="email" id="loginCorreo" placeholder="tu@correo.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" placeholder="******" required>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Entrar al Sistema</button>
+            </form>
+
+            <div class="social-login">
+                <p>O inicia sesión rápidamente con:</p>
+                <button type="button" id="btnGoogle" class="btn-social btn-google">
+                    <i class="fab fa-google"></i> Continuar con Google
+                </button>
+                <button type="button" id="btnFacebook" class="btn-social btn-facebook">
+                    <i class="fab fa-facebook-f"></i> Continuar con Facebook
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // Tu llave exacta de tu proyecto deep-int-app
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGkBAjdlhc3n_q5fOA_2LlsmNe8Zoo4jo",
+            authDomain: "deep-int-app.firebaseapp.com",
+            projectId: "deep-int-app",
+            storageBucket: "deep-int-app.firebasestorage.app",
+            messagingSenderId: "562048760920",
+            appId: "1:562048760920:web:72beb68f0141f3e73ade2d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const providerGoogle = new GoogleAuthProvider();
+        const providerFacebook = new FacebookAuthProvider();
+
+        // A. Lógica para entrar con Correo
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginCorreo').value;
+            const pass = document.getElementById('loginPassword').value;
+            const btn = document.querySelector('#loginForm .btn-primary');
+            
+            btn.innerText = "Verificando...";
+
+            signInWithEmailAndPassword(auth, email, pass)
+                .then(() => {
+                    // Si todo está bien, lo mandamos a los módulos
+                    window.location.href = "modulos.html"; 
+                })
+                .catch((error) => {
+                    alert("Error: Correo o contraseña incorrectos.");
+                    btn.innerText = "Entrar al Sistema";
+                });
+        });
+
+        // B. Lógica para entrar con Google
+        document.getElementById('btnGoogle').addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, providerGoogle);
+                alert(`¡Bienvenido ${result.user.displayName}!`);
+                window.location.href = "modulos.html";
+            } catch (error) {
+                console.error(error);
+                alert("Se canceló el inicio de sesión con Google.");
+            }
+        });
+
+        // C. Lógica para entrar con Facebook
+        document.getElementById('btnFacebook').addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, providerFacebook);
+                alert(`¡Bienvenido ${result.user.displayName}!`);
+                window.location.href = "modulos.html";
+            } catch (error) {
+                console.error(error);
+                alert("Error de conexión con Meta. Requiere App ID verificado para producción.");
+            }
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2026 DEEP-INT - Proyecto de Auditoría en Sistemas Computacionales.</p>
+    </footer>
+
+</body>
+</html>
